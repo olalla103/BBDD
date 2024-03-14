@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- Lista el primer apellido de todos los empleados.
 select apellido1 from empleado;
 
@@ -36,6 +37,8 @@ select id, substr(nif,1,8) as 'Dígitos', substr(nif,9,9) as 'Letra' from emplea
 --valores negativos. Utilice un alias apropiado para la nueva columna columna que está calculando.
 select nombre,presupuesto from departamento;
 
+=======
+>>>>>>> 79552257bbd2845db7de381368d8492da656c1ed
 -- 1. Lista el nombre de los departamentos y el valor del presupuesto actual
 -- ordenado de forma ascendente.
 select nombre, (presupuesto-gastos) as 'Presupuesto actual' from departamento;
@@ -122,4 +125,8 @@ select * from empleado where apellido2 in('Díaz','Moreno');
 select nombre,concat(apellido1,apellido2) as 'apellidos',nif from empleado where id_departamento=3;
 
 -- 25. Lista los nombres, apellidos y nif de los empleados que trabajan en los departamentos 2, 4 o 5.
+<<<<<<< HEAD
 select nombre, nif, concat(apellido1,' ',apellido2) as apellidos from empleado where id_departamento in (2, 4, 5);
+=======
+select nombre, nif, concat(apellido1,' ',apellido2) as apellidos from empleado where id_departamento in (2, 4, 5);
+>>>>>>> 79552257bbd2845db7de381368d8492da656c1ed
