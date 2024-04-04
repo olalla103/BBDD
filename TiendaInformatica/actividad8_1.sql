@@ -205,5 +205,6 @@ select
 from
     fabricante f;
 
---Devuelve un listado de todos los productos que tienen un precio mayor o igual a la media de todos los productos de su mismo fabricante.
+--Devuelve un listado de todos los productos que tienen un precio mayor o igual
+-- a la media de todos los productos de su mismo fabricante.
 --Lista el nombre del producto más caro del fabricante Lenovo.

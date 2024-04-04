@@ -12,9 +12,9 @@ from
 
 -- Calcula el número total de comerciales distintos que aparecen en la tabla pedido.
 select
-    count(distinct(id))
+    count(distinct(id_comercial))
 from
-    comercial;
+    pedido;
 
 -- Calcula el número total de clientes que aparecen en la tabla cliente.
 select
@@ -36,6 +36,7 @@ from
 
 -- Calcula cuál es el valor máximo de categoría para cada una de las ciudades que aparece en la tabla cliente.
 select
+    ciudad,
     max(categoría)
 from
     cliente
@@ -142,8 +143,32 @@ group by
 
 -- Devuelve el número total de pedidos que se han realizado cada año.
 select
+    fecha,
     count(id) as 'número total de pedidos'
 from
     pedido
 group by
     year(fecha);
+
+/*Devuelve los datos del cliente que realizó el pedido más caro en el año 2019. (Sin utilizar INNER JOIN)
+ */
+select
+    c.*
+from
+    cliente c
+where
+    id =(
+        select
+            id_cliente
+        from
+            pedido
+        where
+            total >=(
+                select
+                    max(total)
+                from
+                    pedido
+                where
+                    year(fecha) = 2019 
+            )
+    );
