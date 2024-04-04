@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 -- Lista el primer apellido de todos los empleados.
 select apellido1 from empleado;
 
