@@ -119,19 +119,34 @@ where
 -- Devuelve los nombres de los departamentos que no tienen empleados asociados. (Utilizando IN o NOT IN).
 -- preguntar
 select
+    id,
     nombre
 from
     departamento
 where
-    id in (
+    id not in (
         select
             id_departamento
         from
             empleado
         where
-            id_departamento is null
+            id_departamento is not null
     );
 
 -- Con EXISTS y NOT EXISTS
 -- Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando EXISTS o NOT EXISTS).
+select
+    nombre
+from
+    departamento
+where
+    id exists(
+        select
+            id_departamento
+        from
+            empleado
+        where
+            id_departamento is not null
+    );
+
 -- Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando EXISTS o NOT EXISTS).
