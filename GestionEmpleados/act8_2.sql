@@ -140,13 +140,26 @@ select
 from
     departamento
 where
-    id exists(
+    not exists(
         select
             id_departamento
         from
             empleado
         where
-            id_departamento is not null
+            empleado.id_departamento = departamento.id
     );
 
 -- Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando EXISTS o NOT EXISTS).
+select
+    nombre
+from
+    departamento
+where
+    exists(
+        select
+            id_departamento
+        from
+            empleado
+        where
+            empleado.id_departamento = departamento.id
+    );
