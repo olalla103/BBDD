@@ -1,0 +1,20 @@
+--Inserta un nuevo departamento indicando su código, nombre y presupuesto.
+--Inserta un nuevo departamento indicando su nombre y presupuesto.
+--Inserta un nuevo departamento indicando su código, nombre, presupuesto y gastos.
+--Inserta un nuevo empleado asociado a uno de los nuevos departamentos. 
+--La sentencia de inserción debe incluir: código, nif, nombre, apellido1, apellido2 y codigo_departamento.
+--Inserta un nuevo empleado asociado a uno de los nuevos departamentos. 
+--La sentencia de inserción debe incluir: nif, nombre, apellido1, apellido2 y codigo_departamento.
+--Crea una nueva tabla con el nombre departamento_backup que tenga las
+-- mismas columnas que la tabla departamento. Una vez creada copia todos
+-- las filas de tabla departamento en departamento_backup.
+--Elimina el departamento Proyectos. ¿Es posible eliminarlo? Si no fuese posible,
+-- ¿qué cambios debería realizar para que fuese posible borrarlo?
+--Elimina el departamento Desarrollo. ¿Es posible eliminarlo? Si no fuese posible,
+-- ¿qué cambios debería realizar para que fuese posible borrarlo?
+--Actualiza el código del departamento Recursos Humanos y asígnale el valor 30.
+-- ¿Es posible actualizarlo? Si no fuese posible, ¿qué cambios debería realizar para que fuese actualizarlo?
+--Actualiza el código del departamento Publicidad y asígnale el valor 40.
+-- ¿Es posible actualizarlo? Si no fuese posible, ¿qué cambios debería realizar para que fuese actualizarlo?
+--Actualiza el presupuesto de los departamentos sumándole 50000 € al valor
+-- del presupuesto actual, solamente a aquellos departamentos que tienen un presupuesto menor que 20000 €.
