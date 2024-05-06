@@ -76,7 +76,7 @@ begin
 
    while i < tope do
     set cuadradoAct=i * i;
-    insert into procedimientos (numero,cuadrado) values (i,cuadradoAct);
+    insert into cuadrados (numero,cuadrado) values (i,cuadradoAct);
     set i=i+1;
    end while;
 end //
@@ -128,32 +128,137 @@ begin
 
     delete from cuadrados;
 
-    loop_label: LOOP
+    loop_label: loop
         set cuadrado_act = i * i;
         insert into cuadrados (numero, cuadrado) values (i, cuadrado_act);
         set i = i + 1;
         if i >= tope then
             leave loop_label;
         end if;
-    END LOOP loop_label;
+    end loop loop_label;
 end //
 delimiter ;
 -- Crea una base de datos llamada procedimientos que contenga una tabla llamada ejercicio.
 -- La tabla debe tener una única columna llamada número y el tipo de dato de esta columna
 -- debe ser INT UNSIGNED.
-;
+drop database if exists procedimientos;
+create database procedimientos;
+use procedimientos;
+create table numero (numero int UNSIGNED);
+
 -- Una vez creada la base de datos y la tabla deberá crear un procedimiento llamado
 -- calcular_números con las siguientes características. El procedimiento recibe un parámetro
 -- de entrada llamado valor_inicial de tipo INT UNSIGNED y deberá almacenar en la tabla ejercicio
 -- toda la secuencia de números desde el valor inicial pasado como entrada hasta el 1.
-;
+delimiter //
+drop procedure if exists calcular_numeros;
+create procedure calcular_numeros(in valor_inicial int UNSIGNED);
+declare i int default valor_inicial;
+
+delete from numero;
+
+while i > 0 do
+insert into numero (numero) values (i);
+i = i - 1;
+end while;
+end
+//
+delimiter ;
+
+delimiter //
+drop procedure if exists calcular_numeros;
+create procedure calcular_numeros(in valor_inicial int UNSIGNED)
+begin
+    declare i int default valor_inicial;
+
+    delete from numero;
+
+    while i > 0 do
+        insert into numero (numero) values (i);
+        set i = i - 1;
+    end while;
+end//
+delimiter ;
+
+
 -- Tenga en cuenta que el procedimiento deberá eliminar el contenido actual de las tablas antes de insertar los nuevos valores.
 -- Utilice un bucle WHILE para resolver el procedimiento.
+
 -- Utilice un bucle REPEAT para resolver el procedimiento del ejercicio anterior.
+delimiter //
+drop procedure if exists calcular_numeros;
+create procedure calcular_numeros(in valor_inicial int UNSIGNED)
+begin
+    declare i int unsigned default valor_inicial;
+
+    delete from numero;
+
+    repeat
+        insert into numero (numero) values (i);
+        set i = i - 1;
+    until i <= 0
+    end repeat;
+end 
+//
+delimiter ;
+
 -- Utilice un bucle LOOP para resolver el procedimiento del ejercicio anterior.
--- Crea una base de datos llamada procedimientos que contenga una tabla llamada pares y otra tabla llamada impares. Las dos tablas deben tener una única columna llamada número y el tipo de dato de esta columna debe ser INT UNSIGNED.
--- Una vez creada la base de datos y las tablas deberá crear un procedimiento llamado calcular_pares_impares con las siguientes características. El procedimiento recibe un parámetro de entrada llamado tope de tipo INT UNSIGNED y deberá almacenar en la tabla pares aquellos números pares que existan entre el número 1 y el valor introducido como parámetro. Habrá que realizar la misma operación para almacenar los números impares en la tabla impares.
+delimiter //
+drop procedure if exists calcular_numeros;
+create procedure calcular_numeros(in valor_inicial int UNSIGNED)
+begin
+    declare i int unsigned default valor_inicial;
+
+    delete from numero;
+
+    loop
+        insert into numero (numero) values (i);
+        set i = i - 1;
+        if i <= 0 then
+            leave;
+        end if;
+    end loop;
+end //
+delimiter ;
+
+-- Crea una base de datos llamada procedimientos que contenga una
+-- tabla llamada pares y otra tabla llamada impares. Las dos tablas
+-- deben tener una única columna llamada número y el tipo de dato de esta columna debe ser INT UNSIGNED.
+drop database if exists procedimientos; 
+create database procedimientos;
+use procedimientos;
+
+create table ejercicio (
+    pares int unsigned,
+    impares int unsigned
+) engine=innodb;
+
+-- Una vez creada la base de datos y las tablas deberá crear un procedimiento llamado calcular_pares_impares
+-- con las siguientes características. El procedimiento recibe un parámetro de entrada llamado
+-- tope de tipo INT UNSIGNED y deberá almacenar en la tabla pares aquellos números pares que existan
+-- entre el número 1 y el valor introducido como parámetro. Habrá que realizar la misma operación para
+-- almacenar los números impares en la tabla impares.
 -- Tenga en cuenta que el procedimiento deberá eliminar el contenido actual de las tablas antes de insertar los nuevos valores.
 -- Utilice un bucle WHILE para resolver el procedimiento.
+delimiter //
+drop procedure if exists calcular_pares_impares;
+create procedure calcular_pares_impares(in valor_inicial int UNSIGNED)
+begin
+    declare i int default valor_inicial;
+
+    delete from ejercicio;
+
+    while i > 0 do
+          if i % 2 = 0 then
+            insert into ejercicio (pares) values (i);
+        else
+            insert into ejercicio (impares) values (i);
+        end if;
+
+        set i = i - 1;
+    end while;
+end//
+delimiter ;
+
 -- Utilice un bucle REPEAT para resolver el procedimiento del ejercicio anterior.
 -- Utilice un bucle LOOP para resolver el procedimiento del ejercicio anterior.
