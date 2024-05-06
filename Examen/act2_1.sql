@@ -247,7 +247,7 @@ delimiter ;
 -- debe ser INT UNSIGNED.
 create database procedimientos2;
 
-create table ejercicio
+-- create table ejercicio;
 ;
 -- Una vez creada la base de datos y la tabla deberá crear un procedimiento llamado
 -- calcular_números con las siguientes características. El procedimiento recibe un parámetro
