@@ -227,18 +227,18 @@ delimiter ;
 -- Utilice un bucle REPEAT para resolver el procedimiento del ejercicio anterior.
 -- Utilice un bucle LOOP para resolver el procedimiento del ejercicio anterior.
 delimiter //
-drop procedure if exists sqr//
-create procedure sqr(in n int)
-begin
-    declare s int;
-    delete from cuadrados;
-    repeat
-        set s = n * n;
-        insert into cuadrados(numero,cuadrado) values (n,s);
-        set n = n - 1;
-    until n = 0
-    end repeat;
-end
+    drop procedure if exists sqr//
+    create procedure sqr(in n int)
+    begin
+        declare s int;
+        delete from cuadrados;
+        repeat
+            set s = n * n;
+            insert into cuadrados(numero,cuadrado) values (n,s);
+            set n = n - 1;
+        until n = 0
+        end repeat;
+    end
 //
 delimiter ;
 ;
@@ -246,17 +246,30 @@ delimiter ;
 -- La tabla debe tener una única columna llamada número y el tipo de dato de esta columna
 -- debe ser INT UNSIGNED.
 create database procedimientos2;
+use procedimientos2;
 
--- create table ejercicio;
-;
+create table ejercicio(
+    numero int unsigned
+);
 -- Una vez creada la base de datos y la tabla deberá crear un procedimiento llamado
 -- calcular_números con las siguientes características. El procedimiento recibe un parámetro
 -- de entrada llamado valor_inicial de tipo INT UNSIGNED y deberá almacenar en la tabla ejercicio
 -- toda la secuencia de números desde el valor inicial pasado como entrada hasta el 1.
-;
 -- Tenga en cuenta que el procedimiento deberá eliminar el contenido actual de
 -- las tablas antes de insertar los nuevos valores.
 -- Utilice un bucle WHILE para resolver el procedimiento.
+delimiter //
+    drop procedure if exists calcular_numeros //
+    create procedure calcular_numeros(in valor_inicial int unsigned)
+    begin
+        delete from ejercicio;
+        while valor_inicial >= 1 do
+            insert into ejercicio (numero) values (valor_inicial);
+            set valor_inicial = valor_inicial - 1;
+        end while;
+    end
+//
+delimiter ;
 -- Utilice un bucle REPEAT para resolver el procedimiento del ejercicio anterior.
 -- Utilice un bucle LOOP para resolver el procedimiento del ejercicio anterior.
 ;
