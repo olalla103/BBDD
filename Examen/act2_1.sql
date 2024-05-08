@@ -271,11 +271,51 @@ delimiter //
 //
 delimiter ;
 -- Utilice un bucle REPEAT para resolver el procedimiento del ejercicio anterior.
+delimiter //
+    drop procedure calcular_numeros //
+    create procedure calcular_numeros(in n int) 
+    begin
+        delete from ejercicio;
+        repeat 
+            insert into ejercicio (numero) values (n);
+            set n = n - 1;
+        until n = 0
+        end repeat;
+    end 
+//
+delimiter ;
+
 -- Utilice un bucle LOOP para resolver el procedimiento del ejercicio anterior.
-;
+delimiter //
+    drop procedure calcular_numeros //
+    create procedure calcular_numeros(in n int)
+    begin
+        delete from ejercicio;
+        bucle : loop 
+            if n = 0 then 
+                leave bucle;
+            end if;
+            insert into ejercicio (numero) values (n);
+            set n = n - 1;
+        end loop;
+    end
+//
+delimiter ;
+
 -- Crea una base de datos llamada procedimientos3 que contenga una tabla llamada
 -- pares y otra tabla llamada impares. Las dos tablas deben tener una única columna llamada
 -- número y el tipo de dato de esta columna debe ser INT UNSIGNED.
+create database procedimientos3;
+use procedimientos3;
+
+create table pares(
+    numero int unsigned
+);
+
+create table impares(
+    numero int unsigned
+);
+
 -- Una vez creada la base de datos y las tablas deberá crear un procedimiento
 -- llamado calcular_pares_impares con las siguientes características. El procedimiento
 -- recibe un parámetro de entrada llamado tope de tipo INT UNSIGNED y deberá almacenar en
@@ -285,6 +325,60 @@ delimiter ;
 -- Tenga en cuenta que el procedimiento deberá eliminar el contenido actual de las tablas antes
 -- de insertar los nuevos valores.
 -- Utilice un bucle WHILE para resolver el procedimiento.
+delimiter //
+    drop procedure parim //
+    create procedure parim(in n int)
+    begin 
+        delete from impares;
+        delete from pares;
+        while n > 0 do
+            if n % 2 = 0 then 
+                insert into pares (numero) values (n);
+            else
+                insert into impares (numero) values (n);
+            end if;
+            set n = n - 1;
+        end while;
+    end 
+//
+delimiter ;
 -- Utilice un bucle REPEAT para resolver el procedimiento del ejercicio anterior.
+delimiter //
+    drop procedure parim //
+    create procedure parim(in n int)
+    begin 
+        delete from impares;
+        delete from pares;
+        repeat
+            if n % 2 = 0 then 
+                insert into pares (numero) values (n);
+            else
+                insert into impares (numero) values (n);
+            end if;
+            set n = n - 1;
+        until n = 0
+        end repeat;
+    end 
+//
+delimiter ;
 -- Utilice un bucle LOOP para resolver el procedimiento del ejercicio anterior.
-;
+delimiter //
+    drop procedure parim //
+    create procedure parim(in n int)
+    begin 
+        delete from impares;
+        delete from pares;
+        bucle : loop 
+            if n = 0 then 
+                leave bucle;
+            end if;
+            if n % 2 = 0 then 
+                    insert into pares (numero) values (n);
+                else
+                    insert into impares (numero) values (n);
+            end if;
+            set n = n - 1;
+        end loop;
+    end 
+//
+delimiter ;
