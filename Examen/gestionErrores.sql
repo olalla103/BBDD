@@ -24,16 +24,15 @@ create table alumno(
 -- Deberá manejar los errores que puedan ocurrir cuando se intenta insertar una fila que contiene
 -- una clave primaria repetida.
 delimiter //
-drop procedure insertar_alumno //
-create procedure insertar_alumno(in id int, in nombre varchar(50), in apellido1 varchar(50), in apellido2 varchar(50))
+drop procedure if exists insertar_alumno //
+create procedure insertar_alumno(in idr int, in nombrer varchar(50), in apellido1r varchar(50), in apellido2r varchar(50), out error int)
     begin
-        declare exit handler for sqlstate '1062' set x = 1;
-         
+        declare exit handler for 1062 set error = 1;
+        insert into alumno (id,nombre,apellido1,apellido2) values (idr,nombrer,apellido1r,apellido2r);
+        set error = 0;
     end
 //
-delimiter ;
-
-
+delimiter ; 
 
 -- Teniendo en cuenta el significado del código de error 1062 (ER_DUP_ENTRY).
 -- Duplicate entry ‘%s’ for key %d
