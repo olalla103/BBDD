@@ -31,20 +31,37 @@ create table entradas(
 -- de la entrada se ha podido realizar con éxito y un valor igual a 1 en caso contrario.
 -- El procedimiento de compra realiza los siguientes pasos:
 -- Inicia una transacción.
+
 -- Actualiza la columna saldo de la tabla cuentas cobrando 5 euros a la cuenta con el id_cuenta adecuado.
 -- Inserta una una fila en la tabla entradas indicando la butaca (id_butaca) que acaba de comprar el usuario (nif).
 -- Comprueba si ha ocurrido algún error en las operaciones anteriores. Si no ocurre ningún error 
 -- entonces aplica un COMMIT a la transacción y si ha ocurrido algún error aplica un ROLLBACK.
-
 -- Deberá manejar los siguientes errores que puedan ocurrir durante el proceso.
 -- ERROR 1264 (Out of range value)
 -- ERROR 1062 (Duplicate entry for PRIMARY KEY)
 
--- ¿Qué ocurre cuando intentamos comprar una entrada y le pasamos como parámetro un número de 
--- cuenta que no existe en la tabla cuentas? ¿Ocurre algún error o podemos comprar la entrada? 
--- En caso de que exista algún error, ¿cómo podríamos resolverlo?
--- Pista: si hubiera que crear una cuenta, ésta tendrá como saldo inicial 100€.
-
+delimiter //
+drop procedure if exists comprar_entrada //
+create procedure comprar_entrada(in nifr varchar(9), in id_cuentar int, in id_butacar int, out salida int)
+begin
+    declare final int default 0;
+    
+    declare continue handler for 1264, 1062
+    begin
+        set final = 1;
+        rollback;
+    end;
+    
+    begin
+        start transaction;
+        update cuentas set saldo = saldo - 5 where id_cuenta = id_cuentar;
+        insert into entradas (id_butaca, nif) values (id_butacar, nifr);
+        set salida = final;
+        commit;
+    end;
+end;
+//
+delimiter ;
 
 -- Realizar los ejercicios anteriores siguiendo los pasos siguientes:
 -- Crear la base de datos y las tablas.
